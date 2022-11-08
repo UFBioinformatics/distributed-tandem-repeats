@@ -41,8 +41,8 @@ Also visit [Hadoop Dashboard](http://localhost:9870) by going to http://localhos
 
 ```bash
   > cd ..
-  > docker cp ./map-reduce/mapper.py namenode:mapper.py
-  > docker cp ./map-reduce/reducer.py namenode:reducer.py
+  > docker cp ./map-reduce-python/mapper.py namenode:mapper.py
+  > docker cp ./map-reduce-python/reducer.py namenode:reducer.py
 ```
 
 5. Run the map-reduce job (Temp Word Count Job)
