@@ -37,12 +37,9 @@ Or if you have Docker Desktop <br /><br />
 Also visit [Hadoop Dashboard](http://localhost:9870) by going to http://localhost:9870 <br /><br />
 <img src="./images/Hadoop_Dashboard.PNG" />
 
-4. Copy the mapper and reducer to namenode
-
+4. Genertate MapReduce Jobs using python
 ```bash
-  > cd ..
-  > docker cp ./map-reduce-python/mapper.py namenode:mapper.py
-  > docker cp ./map-reduce-python/reducer.py namenode:reducer.py
+bash start.js
 ```
 
 5. Run the map-reduce job (Temp Word Count Job)
@@ -54,20 +51,10 @@ Enter the namenode container
 ```
 Run ls and you should find mapper.py and reducer.py in the namenode container.
 
-Add few files for the sample word-count job
-
-```bash
-  > mkdir input
-  > echo "Hello World" >input/f1.txt
-  > echo "Hello Docker" >input/f2.txt
-  > echo "Hello Hadoop" >input/f3.txt
-  > echo "Hello MapReduce" >input/f4.txt
-```
-
 Transfer files across the cluster
 ```bash
   > hadoop fs -mkdir -p input
-  > hdfs dfs -put ./input/* input
+  > hdfs dfs -put ./files/* input
 ```
 
 Finally run the map-reduce jobs
