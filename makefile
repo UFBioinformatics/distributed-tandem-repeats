@@ -2,7 +2,7 @@ default:
 	@echo "> Please refer to README for instructions for running the programs"
 
 k-mer:
-	@python './standard-implementations/k-mer.py' --source $(source) --kval $(kval) --output $(output)
+	@time python './standard-implementations/k-mer.py' --source $(source) --kval $(kval) --output $(output)
 
 hadoop-k-mer:
 	@bash './utils/check-dependencies.sh'

@@ -1,3 +1,4 @@
 docker-hadoop/data/
+output
 temp
 temp_env.sh

@@ -14,13 +14,33 @@ services:
     env_file:
       - ./hadoop.env
     
-  datanode:
+  datanode1:
     build: ./datanode
-    container_name: datanode
-    volumes:
-      - hadoop_datanode:/hadoop/dfs/data
+    container_name: datanode1
     depends_on:
       - namenode
+    volumes:
+      - hadoop_datanode1:/hadoop/dfs/data
+    env_file:
+      - ./hadoop.env
+  
+  datanode2:
+    build: ./datanode
+    container_name: datanode2
+    depends_on:
+      - namenode
+    volumes:
+      - hadoop_datanode2:/hadoop/dfs/data
+    env_file:
+      - ./hadoop.env
+  
+  datanode3:
+    build: ./datanode
+    container_name: datanode3
+    depends_on:
+      - namenode
+    volumes:
+      - hadoop_datanode3:/hadoop/dfs/data
     env_file:
       - ./hadoop.env
   
@@ -29,7 +49,9 @@ services:
     container_name: resourcemanager
     depends_on:
       - namenode
-      - datanode
+      - datanode1
+      - datanode2
+      - datanode3
     env_file:
       - ./hadoop.env
     ports:
@@ -40,7 +62,9 @@ services:
     container_name: nodemanager
     depends_on:
       - namenode
-      - datanode
+      - datanode1
+      - datanode2
+      - datanode3
     env_file:
       - ./hadoop.env
     ports:
@@ -51,7 +75,9 @@ services:
     container_name: historyserver
     depends_on:
       - namenode
-      - datanode
+      - datanode1
+      - datanode2
+      - datanode3
     volumes:
       - hadoop_historyserver:/hadoop/yarn/timeline
     env_file:
@@ -61,5 +87,7 @@ services:
 
 volumes:
   hadoop_namenode:
-  hadoop_datanode:
+  hadoop_datanode1:
+  hadoop_datanode2:
+  hadoop_datanode3:
   hadoop_historyserver:
