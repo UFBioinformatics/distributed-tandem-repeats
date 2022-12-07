@@ -1,23 +1,67 @@
+# Simple Sequence Repeats identification using a MapReduce based Distributed Implementation of K-mer algorithm
+
+## Overview
+
+The goal of this project is to understand the performance and feasibility of finding Simple Sequence Repeats in biological sequences using a distributed architecture. The project aims to identify any potential benefits of using a distributed model rather than the traditional approach.
+
+
+## Contributors
+- Devanshu Singh
+- Rachana Gugale
+- Mohammad Uzair Fasih
+
+## Instructions for running the implementation
+> You will need to setup the project before using the make commands. See Installation and Setup
+
+The code contains implementations of K-mer algorithm that run both in a distributed and centralized manner.
+
+All the normal non-distributed implementations are hosted inside the `standard-implementations` folder. The distributed implementations are hosted in the `map-reduce-python` folder.
+
+## Datasets
+
+The datasets used for implementing and testing the code is present in the dataset folder
+
+## Algorithms
+
+### K-mer Algorithm
+---
+
+To run the normal implementation of k-mer algorithm
+```
+make k-mer source=<source-file-path> kval=<size-of-k-mer> [output=<oupit-file-path>]
+```
+
+### Distributed K-mer Algorithm
+---
+
+To run the distributed implmentation of k-mer algorithm
+
+```
+make hadoop-k-mer source=<source-file-path> kval=<size-of-k-mer> [jobcount=><number-of-files>]
+```
+
 ## Installation
 
+This project uses Hadoop to implement a distributed architecture.
 In order to ensure portability, this project uses docker to run hadoop and python based MapReduce.
 
-You need to install 
+In order to run this project, you need to install 
 - Docker and Docker Compose (On Windows Machine, **WSL2 is required**)
 - Git
 
-## Running the project
+## Setup
 
 1. Clone this repo
 2. Run the docker containers for docker
+
 ```bash
-  > cd docker-hadoop
-  > docker-compose up -d
+cd docker-hadoop
+docker-compose up -d
 ```
 
 3. After building the containers, use the following command to verify all the containers are up and running
 ```bash
-  > docker ps
+docker ps
 ```
 
 You should be able to see the following running containers
@@ -37,42 +81,8 @@ Or if you have Docker Desktop <br /><br />
 Also visit [Hadoop Dashboard](http://localhost:9870) by going to http://localhost:9870 <br /><br />
 <img src="./images/Hadoop_Dashboard.PNG" />
 
-4. Genertate MapReduce Jobs using python
+
+4. You can tear down your runnning containers using the following command.
 ```bash
-bash start.js
-```
-
-5. Run the map-reduce job (Temp Word Count Job)
-
-Enter the namenode container
-
-```bash
-  > docker exec -it namenode bash
-```
-Run ls and you should find mapper.py and reducer.py in the namenode container.
-
-Transfer files across the cluster
-```bash
-  > hadoop fs -mkdir -p input
-  > hdfs dfs -put ./files/* input
-```
-
-Finally run the map-reduce jobs
-```bash
-hadoop jar /opt/hadoop-3.2.1/share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar \
--file mapper.py -mapper "python3 mapper.py" \
--file reducer.py -reducer "python3 reducer.py" \
--input input -output output
-``` 
-
-To debug, visit the [resourcemanager](http://localhost:8089/cluster) at http://localhost:8089/cluster
-
-See the results:
-```bash
-  > hadoop fs -cat "./output/*"
-```
-
-6. Cleanup
-```bash
-  > docker-compose down
+docker-compose down
 ```
