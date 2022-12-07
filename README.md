@@ -28,7 +28,7 @@ The datasets used for implementing and testing the code is present in the datase
 
 To run the normal implementation of k-mer algorithm
 ```
-make k-mer source=<source-file-path> kval=<size-of-k-mer> [output=<oupit-file-path>]
+make k-mer source=<source-file-path> kval=<size-of-k-mer> [output=<ouput-file-path>]
 ```
 
 ### Distributed K-mer Algorithm
@@ -37,7 +37,12 @@ make k-mer source=<source-file-path> kval=<size-of-k-mer> [output=<oupit-file-pa
 To run the distributed implmentation of k-mer algorithm
 
 ```
-make hadoop-k-mer source=<source-file-path> kval=<size-of-k-mer> [jobcount=><number-of-files>]
+make hadoop-k-mer source=<source-file-path> kval=<size-of-k-mer> [jobcount=<number-of-files>]
+```
+Check the output of the distribted k-mer algorithm using the following commands
+```
+docker exec -it namenode bash
+hadoop fs -cat "./output/*"
 ```
 
 ## Installation
